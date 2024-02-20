@@ -17,5 +17,4 @@ test('app shows random fact with cat image', async ({ page }) => {
 
   await expect(textContent?.length).toBeGreaterThan(0);
   await expect(imageSrc?.startsWith(CAT_PREFIX_URL)).toBeTruthy();
-  // await expect(imageSrc?.includes(textContent?.split(' ', 3).join(' ') || '')).toBeTruthy();
 });
