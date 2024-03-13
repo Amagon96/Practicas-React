@@ -6,21 +6,16 @@ import { useSearch } from './hooks/useSearch';
 import debounce from 'just-debounce-it';
 
 function App() {
-  const [sort, setSort] = useState(false);
   const { search, setSearch, error } = useSearch();
-  const { movies, getMovies } = useMovie({search, sort});
+  const { movies, getMovies } = useMovie({search});
 
   const debouncedGetMovies = useCallback(
-    debounce((search) => getMovies({ search }), 500), []
+    debounce((search) => getMovies({ search }), 200), []
   )
   
   const handleSubmit = (event) => {
     event.preventDefault()
     getMovies({ search })
-  }
-
-  const handleSort = () => {
-    setSort(!sort);
   }
 
   const handleChange = (event) => { 
@@ -37,8 +32,7 @@ function App() {
         </h1>
         <form className='form' onSubmit={handleSubmit}>
           <input value={search} onChange={handleChange} name='query' placeholder='Avenger, Star Wars, The Matrix...'/>
-          <input type='checkbox' onChange={handleSort} checked={sort}/>
-          <button type='submit'>Search movie</button>
+          {/* <input type='checkbox' onChange={handleSort} checked={sort}/> */}
         </form>
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </header>

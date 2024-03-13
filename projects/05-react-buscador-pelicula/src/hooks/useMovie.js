@@ -6,18 +6,11 @@ export function useMovie({ search, sort }) {
   const previousSearch = useRef(search)
 
     const getMovies = useCallback(async ({ search }) => {
-      if (search === previousSearch.current) return
-
         previousSearch.current = search
         const newMovies = await searchMovies({ search })
         setMovies(newMovies)
     }, [])
 
-    const sortedMovies = useMemo(() => {
-      return sort
-        ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
-        : movies
-    }, [sort, movies])
   
-    return { movies: sortedMovies, getMovies }
+    return { movies, getMovies }
   }
